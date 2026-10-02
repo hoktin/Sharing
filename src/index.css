@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ITC International Engineering School — taken from the SE 2026 brochure */
+  --color-navy-950: #061430;
+  --color-navy-900: #0b1e3f;
+  --color-navy-800: #122a55;
+  --color-navy-700: #183768;
+  --color-navy-600: #25508c;
+  --color-navy-500: #2b6bff;
+  --color-azure-600: #2b6bff;
+  --color-azure-500: #3b82f6;
+  --color-azure-400: #60a5fa;
+  --color-azure-200: #bfdbfe;
+  --color-azure-100: #e4eeff;
+  --color-azure-50:  #f3f7ff;
+
+  --color-cyan-600: #0891b2;
+  --color-cyan-500: #22d3ee;
+  --color-cyan-400: #38e1ff;
+  --color-cyan-100: #d7f7ff;
+
+  /* action / accent */
+  --color-gold-700: #8a6410;
+  --color-gold-600: #c98a12;
+  --color-gold-500: #f5b942;
+  --color-gold-400: #ffce6b;
+  --color-gold-100: #fff3da;
+  --color-gold-50:  #fffaf0;
+
+  /* year coding — journey map, course grids, AI mapping, hub buttons */
+  --color-y1: #94a3b8;
+  --color-y2: #06b6d4;
+  --color-y3: #3b82f6;
+  --color-y4: #8b5cf6;
+  --color-y5: #f5b942;
+
+  /* semantic */
+  --color-good: #16a34a;
+  --color-warn: #f59e0b;
+  --color-stop: #dc2626;
+
+  --color-ink: #16233d;
+  --color-muted: #64748b;
+}
+
+:root { color-scheme: light; }
+
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font-family: var(--font-sans);
+  background: #0a1426;
+  color: var(--color-ink);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Every slide renders at a fixed 1280x720 and is scaled to fit the room,
+   so the projector shows exactly what the browser shows. */
+.stage {
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.slide-root {
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+.thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-in { animation: fadeUp .36s cubic-bezier(.22,.9,.3,1) both; }
+
+/* ?print lays every slide out stacked; this makes Cmd+P export them at the
+   deck's own 16:9 size instead of letter-with-margins. */
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  body { overflow: visible; background: #fff; }
+  .slide-root { box-shadow: none; }
+}
+
+/* ---- Type scale ----------------------------------------------------------
+   1280x720 has the same proportions as a 13.33in PowerPoint slide, so
+   1pt == 1.333px. The spec's point sizes map straight across:
+     title 40-44pt -> 53-59px | bullets 28-32pt -> 37-43px | caption 18-20pt -> 24-27px
+   Nothing drops below 24px except the two name walls, which are figures.    */
+.t-title    { font-size: 56px; line-height: 1.04; font-weight: 800; letter-spacing: -0.02em; }
+.t-title-sm { font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.02em; }
+.t-huge     { font-size: 92px; line-height: 1;    font-weight: 900; letter-spacing: -0.03em; }
+.t-bullet   { font-size: 38px; line-height: 1.28; font-weight: 500; }
+.t-bullet-sm{ font-size: 33px; line-height: 1.3;  font-weight: 500; }
+.t-cap      { font-size: 25px; line-height: 1.35; }
+.t-kicker   { font-size: 21px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
+.t-wall     { font-size: 21px; line-height: 1.25; font-weight: 600; }
+.t-wallhead { font-size: 25px; font-weight: 800; letter-spacing: .02em; }
+.t-code     { font-family: var(--font-mono); font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
